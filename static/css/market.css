@@ -1,0 +1,137 @@
+
+        .market-section {
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+        .market-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--raisin-black);
+            margin-bottom: 30px;
+            overflow-x: auto;
+            gap: 10px;
+        }
+        .market-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: var(--transition-1);
+            white-space: nowrap;
+        }
+        .market-tab.active {
+            color: var(--white);
+            border-bottom: 2px solid var(--blue-crayola);
+        }
+        .market-search {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        .market-search input {
+            width: 100%;
+            background-color: var(--raisin-black);
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--radius-8);
+            color: var(--white);
+        }
+        .market-search input:focus {
+            outline: 2px solid var(--blue-crayola);
+        }
+        .market-search ion-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--cadet-blue-crayola);
+        }
+        .market-table-container {
+            overflow-x: auto;
+        }
+        .market-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        .market-table th {
+            text-align: left;
+            padding: 15px;
+            color: var(--cadet-blue-crayola);
+            font-weight: var(--fw-500);
+            border-bottom: 1px solid var(--raisin-black);
+        }
+        .market-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--raisin-black);
+        }
+        .market-table tr:hover {
+            background-color: var(--raisin-black);
+            cursor: pointer;
+        }
+        .coin-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .coin-info img {
+            width: 32px;
+            height: 32px;
+        }
+        .coin-name-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .coin-name {
+            font-weight: var(--fw-500);
+            color: var(--white);
+        }
+        .coin-symbol {
+            color: var(--cadet-blue-crayola);
+            font-size: var(--fs-8);
+            text-transform: uppercase;
+        }
+        .positive-change {
+            color: var(--medium-sea-green);
+        }
+        .negative-change {
+            color: var(--presian-red);
+        }
+        .sparkline-container {
+            width: 120px;
+            height: 40px;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+            gap: 10px;
+        }
+        .pagination-button {
+            padding: 10px 15px;
+            background-color: var(--eerie-black-1);
+            border: 1px solid var(--raisin-black);
+            border-radius: var(--radius-8);
+            cursor: pointer;
+            transition: var(--transition-1);
+            color: var(--white);
+        }
+        .pagination-button:hover, .pagination-button.active {
+            background-color: var(--blue-crayola);
+        }
+        .page-indicator {
+            display: flex;
+            align-items: center;
+            margin: 0 10px;
+        }
+        .skeleton-loading {
+            background: linear-gradient(90deg, var(--raisin-black) 25%, var(--eerie-black-1) 50%, var(--raisin-black) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: var(--radius-8);
+        }
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+            100% {
+                background-position: -200% 0;
+            }
+        }
+    

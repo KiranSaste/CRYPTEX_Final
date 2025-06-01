@@ -1,0 +1,207 @@
+{% extends "base.html" %}
+{% block title %}Cryptex - Buy & Sell Digital Assets{% endblock %}
+{% block extra_head %}
+    <!-- Additional CSS if needed -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blog.css') }}">
+{% endblock %}
+{% block content %}
+<section class="blog-header">
+    <div class="container">
+        <h1 class="h1">Cryptex Blog</h1>
+        <p>
+            Stay updated with the latest news, trends, and insights in the cryptocurrency world. 
+            Learn more about blockchain technology, market analysis, and investment strategies.
+        </p>
+    </div>
+</section>
+<!-- BLOG MAIN CONTENT -->
+<main>
+    <div class="container">
+        <div class="blog-grid">
+            <!-- Blog Posts -->
+            <div>
+                <!-- Featured Post -->
+                <div class="blog-card featured-post">
+                    <div class="blog-image">
+                        <img src="../static/images/coin-1.svg" alt="Bitcoin Analysis">
+                    </div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span><ion-icon name="calendar-outline"></ion-icon> March 15, 2025</span>
+                            <span><ion-icon name="person-outline"></ion-icon> By Admin</span>
+                        </div>
+                        <span class="blog-tag">Featured</span>
+                        <span class="blog-tag">Bitcoin</span>
+                        <h3 class="h3">Bitcoin Price Prediction for 2025: What Experts Say</h3>
+                        <p>
+                            As cryptocurrency markets continue to evolve, experts weigh in on where Bitcoin prices 
+                            may head in the coming year. Our comprehensive analysis explores different scenarios and 
+                            key indicators to watch.
+                        </p>
+                        <a href="#" class="btn btn-outline">Read More</a>
+                    </div>
+                </div>
+                <!-- Regular Posts -->
+                <div class="blog-posts">
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="../static/images/coin-2.svg" alt="Ethereum Updates">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><ion-icon name="calendar-outline"></ion-icon> March 12, 2025</span>
+                                <span><ion-icon name="chatbubbles-outline"></ion-icon> 24</span>
+                            </div>
+                            <span class="blog-tag">Ethereum</span>
+                            <h4>Ethereum's Next Major Upgrade: What to Expect</h4>
+                            <p>
+                                Ethereum developers have announced the roadmap for the next major upgrade. 
+                                Learn what changes are coming and how they might impact the network.
+                            </p>
+                            <a href="#" class="btn btn-outline">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="../static/images/coin-3.svg" alt="DeFi Strategies">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><ion-icon name="calendar-outline"></ion-icon> March 10, 2025</span>
+                                <span><ion-icon name="chatbubbles-outline"></ion-icon> 18</span>
+                            </div>
+                            <span class="blog-tag">DeFi</span>
+                            <h4>DeFi Yield Farming Strategies for Beginners</h4>
+                            <p>
+                                Decentralized finance offers lucrative opportunities for yield farming. 
+                                This guide breaks down strategies that are suitable for newcomers to the space.
+                            </p>
+                            <a href="#" class="btn btn-outline">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="../static/images/coin-4.svg" alt="NFT Markets">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><ion-icon name="calendar-outline"></ion-icon> March 8, 2025</span>
+                                <span><ion-icon name="chatbubbles-outline"></ion-icon> 31</span>
+                            </div>
+                            <span class="blog-tag">NFT</span>
+                            <h4>The Evolution of NFT Markets in 2025</h4>
+                            <p>
+                                After the initial hype, NFT markets have matured in interesting ways. 
+                                Our report examines how the landscape has changed and what's coming next.
+                            </p>
+                            <a href="#" class="btn btn-outline">Read More</a>
+                        </div>
+                    </div>
+                    <div class="blog-card">
+                        <div class="blog-image">
+                            <img src="../static/images/coin-5.svg" alt="Trading Patterns">
+                        </div>
+                        <div class="blog-content">
+                            <div class="blog-meta">
+                                <span><ion-icon name="calendar-outline"></ion-icon> March 5, 2025</span>
+                                <span><ion-icon name="chatbubbles-outline"></ion-icon> 15</span>
+                            </div>
+                            <span class="blog-tag">Trading</span>
+                            <h4>5 Technical Analysis Patterns Every Crypto Trader Should Know</h4>
+                            <p>
+                                Technical analysis can help predict price movements. Learn the five most reliable 
+                                patterns that can improve your trading decisions.
+                            </p>
+                            <a href="#" class="btn btn-outline">Read More</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pagination -->
+                <div class="pagination">
+                    <a href="#" class="pagination-item">Previous</a>
+                    <a href="#" class="pagination-item active">1</a>
+                    <a href="#" class="pagination-item">2</a>
+                    <a href="#" class="pagination-item">3</a>
+                    <a href="#" class="pagination-item">Next</a>
+                </div>
+            </div>
+            <!-- Sidebar -->
+            <div>
+                <!-- Search Widget -->
+                <div class="sidebar">
+                    <h3 class="h3">Search</h3>
+                    <form class="search-form">
+                        <input type="text" class="search-input" placeholder="Search articles...">
+                        <button type="submit" class="search-button">
+                            <ion-icon name="search-outline"></ion-icon>
+                        </button>
+                    </form>
+                </div>
+                <!-- Categories Widget -->
+                <div class="sidebar">
+                    <h3 class="h3">Categories</h3>
+                    <div>
+                        <a href="#" class="category-tag">Bitcoin (15)</a>
+                        <a href="#" class="category-tag">Ethereum (12)</a>
+                        <a href="#" class="category-tag">DeFi (8)</a>
+                        <a href="#" class="category-tag">NFTs (6)</a>
+                        <a href="#" class="category-tag">Trading (10)</a>
+                        <a href="#" class="category-tag">Altcoins (7)</a>
+                        <a href="#" class="category-tag">Blockchain (14)</a>
+                    </div>
+                </div>
+                <!-- Recent Posts Widget -->
+                <div class="sidebar">
+                    <h3 class="h3">Recent Posts</h3>
+                    <ul class="sidebar-list">
+                        <li>
+                            <a href="#">How Central Bank Digital Currencies Could Reshape Global Finance</a>
+                            <div class="blog-meta"><ion-icon name="calendar-outline"></ion-icon> March 2, 2025</div>
+                        </li>
+                        <li>
+                            <a href="#">The Rise of Layer-2 Solutions: Scaling Blockchain for Mass Adoption</a>
+                            <div class="blog-meta"><ion-icon name="calendar-outline"></ion-icon> February 28, 2025</div>
+                        </li>
+                        <li>
+                            <a href="#">Crypto Tax Planning: What You Need to Know for 2025</a>
+                            <div class="blog-meta"><ion-icon name="calendar-outline"></ion-icon> February 25, 2025</div>
+                        </li>
+                        <li>
+                            <a href="#">Green Mining: How Crypto is Addressing Environmental Concerns</a>
+                            <div class="blog-meta"><ion-icon name="calendar-outline"></ion-icon> February 20, 2025</div>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Popular Tags Widget -->
+                <div class="sidebar">
+                    <h3 class="h3">Popular Tags</h3>
+                    <div>
+                        <a href="#" class="category-tag">#Bitcoin</a>
+                        <a href="#" class="category-tag">#Crypto</a>
+                        <a href="#" class="category-tag">#Blockchain</a>
+                        <a href="#" class="category-tag">#Trading</a>
+                        <a href="#" class="category-tag">#Ethereum</a>
+                        <a href="#" class="category-tag">#DeFi</a>
+                        <a href="#" class="category-tag">#NFT</a>
+                        <a href="#" class="category-tag">#Investing</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Newsletter Section -->
+        <div class="newsletter">
+            <h3 class="h3">Subscribe to Our Newsletter</h3>
+            <p>Stay updated with the latest crypto news, market analysis, and trading tips.</p>
+            <form class="newsletter-form">
+                <div class="search-form">
+                    <input type="email" class="search-input" placeholder="Enter your email address">
+                    <button class="search-button" type="submit">Subscribe</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{{ url_for('static', filename='scripts/script.js') }}" defer></script>
+{% endblock %}

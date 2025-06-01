@@ -1,0 +1,43 @@
+{% extends "admin/base.html" %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="admin-card">
+    <h2 class="h2 mb-4">Dashboard Overview</h2>
+    
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon">
+                <ion-icon name="people-outline"></ion-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="h3">Total Users</h3>
+                <p class="stat-number">{{ total_users }}</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <ion-icon name="swap-horizontal-outline"></ion-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="h3">Total Transactions</h3>
+                <p class="stat-number">{{ total_transactions }}</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon">
+                <ion-icon name="logo-bitcoin"></ion-icon>
+            </div>
+            <div class="stat-content">
+                <h3 class="h3">Active Cryptos</h3>
+                <p class="stat-number">{{ total_cryptos }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="admin-card">
+    <h3 class="h3 mb-3">Recent Activity</h3>
+    <div class="activity-list">
+        <!-- Add recent activity items here -->
+    </div>
+</div>
+{% endblock %}

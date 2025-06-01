@@ -1,0 +1,25 @@
+{% extends "admin/base.html" %}
+{% block title %}Edit Cryptocurrency{% endblock %}
+{% block content %}
+<h2>Edit Cryptocurrency</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="mb-3">
+        {{ form.name.label(class="form-label") }}
+        {{ form.name(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.symbol.label(class="form-label") }}
+        {{ form.symbol(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.coingecko_id.label(class="form-label") }}
+        {{ form.coingecko_id(class="form-control") }}
+    </div>
+    <div class="mb-3">
+        {{ form.image_filename.label(class="form-label") }}
+        {{ form.image_filename(class="form-control") }}
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+</form>
+{% endblock %}

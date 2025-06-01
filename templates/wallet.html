@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block title %}Cryptex - Buy & Sell Digital Assets{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/wallet.css') }}">
+{% endblock %}
+{% block content %}
+<main>
+    <section class="wallet-section">
+        <div class="container">
+            <div class="wallet-header">
+                <h1 class="h2">My Wallet</h1>
+                <div class="wallet-balance">$12,680.45</div>
+                <div class="balance-change positive-change">+$346.28 (2.81%) today</div>
+                
+                <div class="action-buttons">
+                    <a href="{{ url_for('trade') }}" class="btn btn-primary">Buy Crypto</a>
+                    <a href="{{ url_for('sell') }}" class="btn btn-outline">Sell Crypto</a>
+                </div>
+            </div>
+            
+            <div class="wallet-grid">
+                <!-- Main wallet content -->
+                <div>
+                    <!-- Portfolio summary -->
+                    <div class="portfolio-summary">
+                        <div class="summary-card">
+                            <div class="summary-label">Total Balance</div>
+                            <div class="summary-value">$12,680.45</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-label">24h Change</div>
+                            <div class="summary-value positive-change">+2.81%</div>
+                        </div>
+                        <div class="summary-card">
+                            <div class="summary-label">Assets</div>
+                            <div class="summary-value">5</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Portfolio chart -->
+                    <div class="wallet-card">
+                        <h3 class="h3">Portfolio Value</h3>
+                        <div class="chart-container">
+                            <canvas id="portfolioChart"></canvas>
+                        </div>
+                    </div>
+                    
+                    <!-- Tabs for assets and transactions -->
+                    <div class="wallet-card">
+                        <div class="wallet-tabs">
+                            <div class="wallet-tab active" data-tab="assets">Assets</div>
+                            <div class="wallet-tab" data-tab="transactions">Transactions</div>
+                        </div>
+                        
+                        <!-- Assets tab content -->
+                        <div id="assets-content">
+                            <div class="portfolio-container">
+                                <!-- Bitcoin -->
+                                <div class="portfolio-item" data-coin="bitcoin">
+                                    <div class="coin-info">
+                                        <img src="{{ url_for('static', filename='images/coin-1.svg') }}" alt="Bitcoin">
+                                        <div class="coin-name-container">
+                                            <div class="coin-name">Bitcoin</div>
+                                            <div class="coin-amount">0.12 BTC</div>
+                                        </div>
+                                    </div>
+                                    <div class="coin-value">
+                                        <div class="coin-price">$5,836.24</div>
+                                        <div class="coin-change positive-change">+1.42%</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Ethereum -->
+                                <div class="portfolio-item" data-coin="ethereum">
+                                    <div class="coin-info">
+                                        <img src="{{ url_for('static', filename='images/coin-2.svg') }}" alt="Ethereum">
+                                        <div class="coin-name-container">
+                                            <div class="coin-name">Ethereum</div>
+                                            <div class="coin-amount">2.5 ETH</div>
+                                        </div>
+                                    </div>
+                                    <div class="coin-value">
+                                        <div class="coin-price">$4,651.78</div>
+                                        <div class="coin-change positive-change">+3.84%</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Tether -->
+                                <div class="portfolio-item" data-coin="tether">
+                                    <div class="coin-info">
+                                        <img src="{{ url_for('static', filename='images/coin-3.svg') }}" alt="Tether">
+                                        <div class="coin-name-container">
+                                            <div class="coin-name">Tether</div>
+                                            <div class="coin-amount">1000 USDT</div>
+                                        </div>
+                                    </div>
+                                    <div class="coin-value">
+                                        <div class="coin-price">$1,000.00</div>
+                                        <div class="coin-change">0.00%</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Cardano -->
+                                <div class="portfolio-item" data-coin="cardano">
+                                    <div class="coin-info">
+                                        <img src="{{ url_for('static', filename='images/coin-4.svg') }}" alt="Cardano">
+                                        <div class="coin-name-container">
+                                            <div class="coin-name">Cardano</div>
+                                            <div class="coin-amount">1250 ADA</div>
+                                        </div>
+                                    </div>
+                                    <div class="coin-value">
+                                        <div class="coin-price">$823.95</div>
+                                        <div class="coin-change negative-change">-1.25%</div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Solana -->
+                                <div class="portfolio-item" data-coin="solana">
+                                    <div class="coin-info">
+                                        <img src="{{ url_for('static', filename='images/coin-6.svg') }}" alt="Solana">
+                                        <div class="coin-name-container">
+                                            <div class="coin-name">Solana</div>
+                                            <div class="coin-amount">3.8 SOL</div>
+                                        </div>
+                                    </div>
+                                    <div class="coin-value">
+                                        <div class="coin-price">$368.48</div>
+                                        <div class="coin-change positive-change">+5.32%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Transactions tab content -->
+                        <div id="transactions-content" style="display: none;">
+                            <div class="transaction-item">
+                                <div class="transaction-info">
+                                    <div class="transaction-icon buy">
+                                        <ion-icon name="arrow-down-outline"></ion-icon>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-type">Buy Bitcoin</div>
+                                        <div class="transaction-date">May 15, 2023 · 10:24 AM</div>
+                                    </div>
+                                </div>
+                                <div class="transaction-amount buy">+0.02 BTC</div>
+                            </div>
+                            
+                            <div class="transaction-item">
+                                <div class="transaction-info">
+                                    <div class="transaction-icon buy">
+                                        <ion-icon name="arrow-down-outline"></ion-icon>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-type">Buy Ethereum</div>
+                                        <div class="transaction-date">May 12, 2023 · 2:15 PM</div>
+                                    </div>
+                                </div>
+                                <div class="transaction-amount buy">+1.5 ETH</div>
+                            </div>
+                            
+                            <div class="transaction-item">
+                                <div class="transaction-info">
+                                    <div class="transaction-icon sell">
+                                        <ion-icon name="arrow-up-outline"></ion-icon>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-type">Sell Cardano</div>
+                                        <div class="transaction-date">May 8, 2023 · 9:30 AM</div>
+                                    </div>
+                                </div>
+                                <div class="transaction-amount sell">-200 ADA</div>
+                            </div>
+                            
+                            <div class="transaction-item">
+                                <div class="transaction-info">
+                                    <div class="transaction-icon buy">
+                                        <ion-icon name="arrow-down-outline"></ion-icon>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-type">Buy Solana</div>
+                                        <div class="transaction-date">May 5, 2023 · 11:42 AM</div>
+                                    </div>
+                                </div>
+                                <div class="transaction-amount buy">+3.8 SOL</div>
+                            </div>
+                            
+                            <div class="transaction-item">
+                                <div class="transaction-info">
+                                    <div class="transaction-icon buy">
+                                        <ion-icon name="arrow-down-outline"></ion-icon>
+                                    </div>
+                                    <div class="transaction-details">
+                                        <div class="transaction-type">Buy Bitcoin</div>
+                                        <div class="transaction-date">May 1, 2023 · 3:18 PM</div>
+                                    </div>
+                                </div>
+                                <div class="transaction-amount buy">+0.1 BTC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Sidebar -->
+                <div>
+                    <!-- Price Alerts -->
+                    <div class="wallet-card">
+                        <h3 class="h3">Price Alerts</h3>
+                        <div class="empty-state">
+                            <ion-icon name="notifications-outline"></ion-icon>
+                            <p>No price alerts set</p>
+                            <button class="btn btn-small btn-outline" style="margin-top: 15px;">Set Alert</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Watchlist -->
+                    <div class="wallet-card">
+                        <h3 class="h3">Watchlist</h3>
+                        <div class="empty-state">
+                            <ion-icon name="star-outline"></ion-icon>
+                            <p>Your watchlist is empty</p>
+                            <a href="{{ url_for('market') }}" class="btn btn-small btn-outline" style="margin-top: 15px;">Add Assets</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{{ url_for('static', filename='scripts/wallet.js') }}" defer></script>
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Cryptex - Buy & Sell Digital Assets{% endblock %}
+{% block extra_head %}
+    <!-- Additional CSS if needed -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}">
+{% endblock %}
+{% block content %}
+<main>
+    <section class="section sell-section">
+        <div class="container">
+            <h2 class="h2 section-title">Sell Cryptocurrency</h2>
+            
+            <div class="sell-form-container">
+                <form class="sell-form" method="post">
+                    <div class="form-group">
+                        <label for="crypto-select">Select Cryptocurrency</label>
+                        <select id="crypto-select" name="cryptocurrency" required>
+                            <option value="">Choose a cryptocurrency</option>
+                            <option value="BTC">Bitcoin (BTC)</option>
+                            <option value="ETH">Ethereum (ETH)</option>
+                            <option value="BNB">Binance Coin (BNB)</option>
+                            <option value="USDT">Tether (USDT)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="amount">Amount</label>
+                        <input type="number" id="amount" name="amount" step="0.00000001" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price per unit (USD)</label>
+                        <input type="number" id="price" name="price" step="0.01" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Sell Now</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{{ url_for('static', filename='scripts/market.js') }}" defer></script>
+{% endblock %}

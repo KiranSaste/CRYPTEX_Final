@@ -1,0 +1,180 @@
+{% extends "base.html" %}
+{% block title %}Cryptex - Buy & Sell Digital Assets{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/market.css') }}">
+{% endblock %}
+{% block content %}
+<main>
+    <section class="market-section">
+        <div class="container">
+            <h1 class="h2">Cryptocurrency Markets</h1>
+            <p>Real-time prices and stats for hundreds of cryptocurrencies</p>
+            
+            <div class="market-tabs">
+                <div class="market-tab active" data-cat="all">All Assets</div>
+                <div class="market-tab" data-cat="spot">Spot Markets</div>
+                <div class="market-tab" data-cat="defi">DeFi</div>
+                <div class="market-tab" data-cat="nft">NFT</div>
+                <div class="market-tab" data-cat="metaverse">Metaverse</div>
+                <div class="market-tab" data-cat="gaming">Gaming</div>
+                <div class="market-tab" data-cat="stablecoins">Stablecoins</div>
+            </div>
+            
+            <div class="market-search">
+                <input type="text" id="market-search-input" placeholder="Search cryptocurrencies...">
+                <ion-icon name="search-outline"></ion-icon>
+            </div>
+            
+            <div class="market-table-container">
+                <table class="market-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>24h %</th>
+                            <th>7d %</th>
+                            <th>Market Cap</th>
+                            <th>Volume (24h)</th>
+                            <th>Last 7 Days</th>
+                            <th>Trade</th>
+                        </tr>
+                    </thead>
+                    <tbody id="market-data">
+                        <!-- Skeleton loading placeholders -->
+                        <tr>
+                            <td class="skeleton-loading" style="width: 20px; height: 20px;"></td>
+                            <td>
+                                <div class="coin-info">
+                                    <div class="skeleton-loading" style="width: 32px; height: 32px; border-radius: 50%;"></div>
+                                    <div class="coin-name-container">
+                                        <div class="skeleton-loading" style="width: 100px; height: 16px;"></div>
+                                        <div class="skeleton-loading" style="width: 60px; height: 12px; margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 120px; height: 40px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 30px;"></div></td>
+                        </tr>
+                        <!-- Repeat skeleton rows -->
+                        <tr>
+                            <td class="skeleton-loading" style="width: 20px; height: 20px;"></td>
+                            <td>
+                                <div class="coin-info">
+                                    <div class="skeleton-loading" style="width: 32px; height: 32px; border-radius: 50%;"></div>
+                                    <div class="coin-name-container">
+                                        <div class="skeleton-loading" style="width: 100px; height: 16px;"></div>
+                                        <div class="skeleton-loading" style="width: 60px; height: 12px; margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 120px; height: 40px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 30px;"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="skeleton-loading" style="width: 20px; height: 20px;"></td>
+                            <td>
+                                <div class="coin-info">
+                                    <div class="skeleton-loading" style="width: 32px; height: 32px; border-radius: 50%;"></div>
+                                    <div class="coin-name-container">
+                                        <div class="skeleton-loading" style="width: 100px; height: 16px;"></div>
+                                        <div class="skeleton-loading" style="width: 60px; height: 12px; margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 120px; height: 40px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 30px;"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="skeleton-loading" style="width: 20px; height: 20px;"></td>
+                            <td>
+                                <div class="coin-info">
+                                    <div class="skeleton-loading" style="width: 32px; height: 32px; border-radius: 50%;"></div>
+                                    <div class="coin-name-container">
+                                        <div class="skeleton-loading" style="width: 100px; height: 16px;"></div>
+                                        <div class="skeleton-loading" style="width: 60px; height: 12px; margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 120px; height: 40px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 30px;"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="skeleton-loading" style="width: 20px; height: 20px;"></td>
+                            <td>
+                                <div class="coin-info">
+                                    <div class="skeleton-loading" style="width: 32px; height: 32px; border-radius: 50%;"></div>
+                                    <div class="coin-name-container">
+                                        <div class="skeleton-loading" style="width: 100px; height: 16px;"></div>
+                                        <div class="skeleton-loading" style="width: 60px; height: 12px; margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 120px; height: 40px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 30px;"></div></td>
+                        </tr>
+                        <tr>
+                            <td class="skeleton-loading" style="width: 20px; height: 20px;"></td>
+                            <td>
+                                <div class="coin-info">
+                                    <div class="skeleton-loading" style="width: 32px; height: 32px; border-radius: 50%;"></div>
+                                    <div class="coin-name-container">
+                                        <div class="skeleton-loading" style="width: 100px; height: 16px;"></div>
+                                        <div class="skeleton-loading" style="width: 60px; height: 12px; margin-top: 5px;"></div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 60px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 100px; height: 20px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 120px; height: 40px;"></div></td>
+                            <td><div class="skeleton-loading" style="width: 80px; height: 30px;"></div></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="pagination">
+                <button class="pagination-button" id="prev-page">
+                    <ion-icon name="chevron-back-outline"></ion-icon>
+                </button>
+                <div class="page-indicator">Page <span id="current-page">1</span></div>
+                <button class="pagination-button" id="next-page">
+                    <ion-icon name="chevron-forward-outline"></ion-icon>
+                </button>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+    <!-- custom js link -->
+    <script src="{{ url_for('static', filename='scripts/market.js') }}" defer></script>
+{% endblock %}

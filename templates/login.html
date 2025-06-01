@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Login | Cryptex{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+{% block content %}
+<main>
+    <section class="section">
+        <div class="container">
+            <div class="login-container">
+                <div class="login-card">
+                    <h2 class="h2">Login to Cryptex</h2>
+                    <form method="POST" action="{{ url_for('login') }}" class="login-form">
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                        {% if messages %}
+                        <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}" role="alert">
+                            {% for category, message in messages %}
+                                <p>{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                    {% endwith %}
+    
+                        {{ form.hidden_tag() }}
+                        
+                        <div class="form-group">
+                            {{ form.email.label }}
+                            {{ form.email(class="form-control") }}
+                            {% for error in form.email.errors %}
+                                <span class="error-message">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        
+                        <div class="form-group">
+                            {{ form.password.label }}
+                            {{ form.password(class="form-control") }}
+                            {% for error in form.password.errors %}
+                                <span class="error-message">{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                    <p class="create-account">
+                        Don't have an account? <a href="{{ url_for('register') }}">Create account</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="{{ url_for('static', filename='scripts/login.js') }}" defer></script>
+{% endblock %}

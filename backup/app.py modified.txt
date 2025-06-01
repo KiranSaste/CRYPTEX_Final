@@ -1,0 +1,160 @@
+# Working file
+
+from flask import Flask, render_template, redirect, url_for, flash, session, request
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField
+from wtforms.validators import DataRequired, Email, Length, EqualTo
+from flask_mysqldb import MySQL
+import bcrypt
+import pymysql
+app = Flask(__name__)
+app.secret_key = 'your-secret-key-here'  # Change this to a strong secret key
+# MySQL Configuration
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'Admin2025'
+app.config['MYSQL_DB'] = 'cryptex'
+app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
+mysql = MySQL(app)
+# Forms
+class RegisterForm(FlaskForm):
+    username = StringField('Username', validators=[
+        DataRequired(),
+        Length(min=4, max=20, message='Username must be between 4-20 characters')
+    ])
+    email = StringField('Email', validators=[
+        DataRequired(),
+        Email(message='Invalid email address')
+    ])
+    password = PasswordField('Password', validators=[
+        DataRequired(),
+        Length(min=8, message='Password must be at least 8 characters')
+    ])
+    confirm_password = PasswordField('Confirm Password', validators=[
+        DataRequired(),
+        EqualTo('password', message='Passwords must match')
+    ])
+    submit = SubmitField('Register')
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[
+        DataRequired(),
+        Email(message='Invalid email address')
+    ])
+    password = PasswordField('Password', validators=[
+        DataRequired()
+    ])
+    submit = SubmitField('Login')
+# Routes
+@app.route('/')
+def home():
+    print("hello1")
+    return render_template('index.html')
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    print("Register route hit" )
+    form = RegisterForm()
+    if form.validate_on_submit():
+        print("Form data:", request.form)  # Debug form data
+        try:
+            username = form.username.data
+            email = form.email.data
+            password = form.password.data
+            # Hash password
+            hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+            print(f"Hashed password: {hashed_password}")  # Debug hashed password
+            # Check if user exists
+            cursor = mysql.connection.cursor()
+            cursor.execute("SELECT * FROM user WHERE email = %s OR username = %s", (email, username))
+            user = cursor.fetchone()
+            print(f"User exists check: {user}")  # Debug user exists check
+            if user:
+                flash('Email or username already exists', 'danger')
+                return redirect(url_for('login'))
+            # Create new user
+            cursor.execute(
+                "INSERT INTO user (username, email, password) VALUES (%s, %s, %s)",
+                (username, email, hashed_password)
+            )
+            mysql.connection.commit()
+            print(f"Rows affected: {cursor.rowcount}")  # Add this line to debug database errors
+            cursor.close()
+            
+            flash('Registration successful! Please login.', 'success')
+            return redirect(url_for('login'))
+           
+        except pymysql.Error as e:
+            print(f"Database error: {e}")  # Add this line to debug database errors
+            mysql.connection.rollback()
+            flash('Database error occurred. Please try again.', 'danger')
+            return redirect(url_for('register'))
+    return render_template('register.html', form=form)
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    print("Hello 3" )
+    form = LoginForm()
+    if form.validate_on_submit():
+        
+        try:
+            email = form.email.data
+            password = form.password.data
+            # Get user from database
+            cursor = mysql.connection.cursor()
+            cursor.execute("SELECT * FROM user WHERE email = %s", (email,))
+            user = cursor.fetchone()
+            cursor.close()
+            if user and bcrypt.checkpw(password.encode('utf-8'), user['password'].encode('utf-8')):
+                # Set session variables
+                session['user_id'] = user['id']
+                session['username'] = user['username']
+                session['email'] = user['email']
+                
+                flash('Login successful!', 'success')
+                return redirect(url_for('home'))
+            else:
+                flash('Invalid email or password', 'danger')
+        except pymysql.Error as e:
+            flash('Database error occurred. Please try again.', 'danger')
+    return render_template('login.html', form=form)
+@app.route('/logout')
+def logout():
+    print("Hello 4" )
+    # Clear session
+    session.clear()
+    flash('You have been logged out', 'info')
+    return redirect(url_for('home'))
+# Other routes (market, trade, etc.)
+@app.route('/market')
+def market():
+    print("Hello 5" )
+    if 'user_id' not in session:
+        flash('Please login to access this page', 'warning')
+        return redirect(url_for('login'))
+    return render_template('market.html')
+@app.route('/trade')
+def trade():
+    print("Hello 6" )
+    if 'user_id' not in session:
+        flash('Please login to access this page', 'warning')
+        return redirect(url_for('login'))
+    return render_template('trade.html')
+@app.route('/sell')
+def sell():
+    print("sell route hit")
+    render_template('sell.html')
+@app.route('/wallet')
+def wallet():
+    print("Hello 7" )
+    if 'user_id' not in session:
+        flash('Please login to access this page', 'warning')
+        return redirect(url_for('login'))
+    return render_template('wallet.html')
+@app.route('/support')
+def support():
+    print("Hello 8" )
+    return render_template('support.html')
+@app.route('/blog')
+def blog():
+    print("Hello 8" )
+    return render_template('blog.html')
+if __name__ == '__main__':
+    app.run(debug=True)

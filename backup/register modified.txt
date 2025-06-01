@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Cryptex</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <a href="{{ url_for('main.home') }}" class="logo">Cryptex</a>
+            <nav class="navbar">
+                <ul class="navbar-list">
+                    <li><a href="{{ url_for('main.home') }}">Home</a></li>
+                    <li><a href="{{ url_for('main.login') }}">Login</a></li>
+                    <li><a href="{{ url_for('main.register') }}">Create Account</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section>
+            <div>
+                <form method="POST" action="{{ url_for('main.register') }}">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" required>
+                    {% if username_error %}
+                        <p>{{ username_error }}</p>
+                    {% endif %}
+                    <label for="email">Email</label>
+                    <input type="email" name="email" required>
+                    {% if email_error %}
+                        <p>{{ email_error }}</p>
+                    {% endif %}
+                    <label for="password">Password</label>
+                    <input type="password" name="password" required>
+                    {% if password_error %}
+                        <p>{{ password_error }}</p>
+                    {% endif %}
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" name="confirm_password" required>
+                    {% if confirm_password_error %}
+                        <p>{{ confirm_password_error }}</p>
+                    {% endif %}
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Cryptex</title>
+    
+    <!-- favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.svg') }}" type="image/svg+xml">
+    
+    <!-- custom css link -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- google font link -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        .register-section {
+            padding-top: 120px;
+            padding-bottom: 100px;
+        }
+        .register-container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        .register-card {
+            background-color: var(--eerie-black-2);
+            border-radius: var(--radius-12);
+            padding: 30px;
+            box-shadow: var(--shadow-1);
+        }
+        .register-form .form-group {
+            margin-bottom: 20px;
+        }
+        .register-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--white);
+        }
+        .register-form input {
+            width: 100%;
+            background-color: var(--raisin-black);
+            color: var(--white);
+            padding: 12px 15px;
+            border: none;
+            border-radius: var(--radius-12);
+            font-size: 1.5rem;
+        }
+        .register-form input:focus {
+            outline: 2px solid var(--blue-crayola);
+        }
+        .error-message {
+            color: var(--presian-red);
+            font-size: 1.2rem;
+            margin-top: 5px;
+            display: block;
+        }
+        .register-link {
+            color: var(--blue-crayola);
+            transition: var(--transition-1);
+        }
+        .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- #HEADER -->
+    <header class="header" data-header>
+        <div class="container">
+            <a href="{{ url_for('main.home') }}" class="logo">
+                <img src="{{ url_for('static', filename='images/logo.svg') }}" width="32" height="32" alt="Cryptex logo">
+                Cryptex
+            </a>
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+                    <li class="navbar-item">
+                        <a href="{{ url_for('main.home') }}" class="navbar-link" data-nav-link>Home</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="{{ url_for('main.trade') }}" class="navbar-link" data-nav-link>Trade</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="{{ url_for('main.market') }}" class="navbar-link" data-nav-link>Markets</a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="{{ url_for('main.blog') }}" class="navbar-link" data-nav-link>Blog</a>
+                    </li>
+                    <!-- <li class="navbar-item">
+                        <a href="{{ url_for('main.register') }}" class="navbar-link active" data-nav-link>Create Account</a>
+                    </li> -->
+                </ul>
+            </nav>
+            <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+                <span class="line line-1"></span>
+                <span class="line line-2"></span>
+                <span class="line line-3"></span>
+            </button>
+            <a href="{{ url_for('main.login') }}" class="btn btn-outline">Login</a>
+        </div>
+    </header>
+    <!-- Registration Form -->
+    <main>
+        <section class="register-section">
+            <div class="container">
+                <div class="register-container">
+                    <div class="register-card">
+                        <h2 class="h2">Create an Account</h2>
+                        <form action="{{url_for('main.register')}}" method="POST">
+                            {{ form.hidden_tag() }}
+                            <div class="form-group">
+                            {{ form.username.label (for="username") }}
+                            {{ form.username(id="username", class="form-control") }}
+            
+                            {% if form.username.errors %}
+                                <div class="alert alert-danger" role="alert">
+                                    {% for error in form.username.errors %}
+                                        {{ error }}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            </div>
+                            
+                            <div class="form-group">
+                                {{ form.email.label (for="email") }}
+                                {{ form.email(id="email", class="form-control") }}
+                
+                                {% if form.email.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {% for error in form.email.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+            
+                            <div class="form-group">
+                                {{ form.password.label (for="password") }}
+                                {{ form.password(id="password", class="form-control") }}
+                
+                                {% if form.password.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {% for error in form.password.errors %}
+                                            {{ error }}
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+            
+                            {{form.submit(class="btn btn-dark mt-4")}}
+                            <a href="/login" class="btn btn-primary">Login</a>
+                        </form>
+                        <!-- Already have an account -->
+                        <p class="create-account">
+                            Already have an account? <a href="{{ url_for('main.login') }}" class="register-link">Login here</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer will be added here if needed -->
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+</html>

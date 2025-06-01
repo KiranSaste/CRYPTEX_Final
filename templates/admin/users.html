@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% block title %}User Management{% endblock %}
+{% block content %}
+<div class="admin-card">
+    <h2 class="h2 mb-4">Registered Users</h2>
+    
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Registered</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>#{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.created_at.strftime('%Y-%m-%d') if user.created_at else 'N/A' }}</td>
+                    <td>
+                        <button class="btn-icon" title="View Details">
+                            <ion-icon name="eye-outline"></ion-icon>
+                        </button>
+                        <button class="btn-icon text-danger" title="Suspend User">
+                            <ion-icon name="lock-closed-outline"></ion-icon>
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

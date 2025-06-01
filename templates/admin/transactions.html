@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+{% block title %}Transaction Management{% endblock %}
+{% block content %}
+<div class="admin-card">
+    <h2 class="h2 mb-4">Transaction History</h2>
+    
+    <div class="table-responsive">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Type</th>
+                    <th>Crypto</th>
+                    <th>Amount</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for transaction in transactions %}
+                <tr>
+                    <td>#{{ transaction.id }}</td>
+                    <td>{{ transaction.username }}</td>
+                    <td>
+                        <span class="badge {{ 'success' if transaction.transaction_type == 'buy' else 'danger' }}">
+                            {{ transaction.transaction_type|upper }}
+                        </span>
+                    </td>
+                    <td>{{ transaction.symbol }}</td>
+                    <td>${{ "%.2f"|format(transaction.price) }}</td>
+                    <td>{{ transaction.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

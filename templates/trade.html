@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% block title %}Cryptex - Buy & Sell Digital Assets{% endblock %}
+{% block extra_head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/trade.css') }}">
+{% endblock %}
+{% block content %}
+<main>
+    <section class="trade-section">
+        <div class="container">
+            <h1 class="h2">Trade Cryptocurrency</h1>
+            <p>Buy and sell cryptocurrencies with real-time price data</p>           
+            <!-- Crypto selector -->
+            <div class="crypto-selector">
+               <!-- fetch coin from the datbase cryptocurrency table -->
+               <div class="crypto-selector">
+                {% for coin in coins %}
+                    <div class="crypto-option {% if loop.first %}active{% endif %}" 
+                         data-coin="{{ coin.coingecko_id }}" 
+                         data-crypto-id="{{ coin.id }}">
+                        <img src="{{ url_for('static', filename='images/' ~ coin.image_filename) }}" alt="{{ coin.name }}">
+                        <span>{{ coin.name }} ({{ coin.symbol.upper() }})</span>
+                    </div>
+                {% endfor %}
+            </div>
+                
+            </div>
+            
+            <div class="trade-container">
+                <!-- Chart and price section -->
+                <div>
+                    <div class="trade-card">
+                        <div class="price-info">
+                            <div class="price-card">
+                                <h4>Current Price</h4>
+                                <div class="price-value" id="current-price">$0.00</div>
+                            </div>
+                            <div class="price-card">
+                                <h4>24h Change</h4>
+                                <div class="price-value" id="price-change">0.00%</div>
+                            </div>
+                            <div class="price-card">
+                                <h4>24h High</h4>
+                                <div class="price-value" id="price-high">$0.00</div>
+                            </div>
+                            <div class="price-card">
+                                <h4>24h Low</h4>
+                                <div class="price-value" id="price-low">$0.00</div>
+                            </div>
+                        </div>
+                        
+                        <div class="time-filter">
+                            <button class="time-option active" data-days="1">24H</button>
+                            <button class="time-option" data-days="7">7D</button>
+                            <button class="time-option" data-days="30">30D</button>
+                            <button class="time-option" data-days="90">90D</button>
+                            <button class="time-option" data-days="365">1Y</button>
+                        </div>
+                        
+                        <div class="chart-container">
+                            <canvas id="priceChart"></canvas>
+                        </div>
+                    </div>
+                   
+                <!-- store the transaction data to the database transaction table  -->
+                    <!-- Trading interface -->
+                    <div class="trade-card">
+                        <div class="trade-tabs">
+                            <div class="trade-tab active" data-tab="buy">Buy</div>
+                            <div class="trade-tab" data-tab="sell">Sell</div>
+                        </div>
+                        <div class="trade-form-container">
+                            <div class="trade-form">
+                                <form id="trade-form" method="POST" action="{{ url_for('place_order') }}">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <input type="hidden" name="crypto_id" id="crypto-id">
+                                    <input type="hidden" name="trade_type" id="transaction-type" value="buy">
+                                    <input type="hidden" id="login-url" value="{{ url_for('login') }}">
+                                    <div class="form-group">
+                                        <label for="trade-amount">Amount (USD)</label>
+                                        <input type="number" name="amount" id="trade-amount" min="10" step="0.01" placeholder="Enter amount" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="trade-quantity">Quantity</label>
+                                        <input type="number" name="quantity" id="trade-quantity" readonly placeholder="0.00" step="0.00000001">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="payment-method">Payment Method</label>
+                                        <select id="payment-method" name="payment_method" required>
+                                            <option value="">Select payment method</option>
+                                            <option value="bank">Bank Transfer</option>
+                                            <option value="card">Credit Card</option>
+                                            <option value="wallet">Crypto Wallet</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary" id="trade-button">Buy Now</button>
+                                </form>
+                            </div>
+                            <div class="order-summary">
+                                <h3 class="h3">Order Summary</h3>
+                                <div class="form-group">
+                                    <p>Exchange Rate: <span id="exchange-rate">1 BTC = $0.00</span></p>
+                                    <p>Transaction Fee (1.5%): <span id="fee-amount">$0.00</span></p>
+                                    <p>Total: <span id="total-amount">$0.00</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <!-- Sidebar -->
+                <div>
+                    <div class="trade-card">
+                        <h3 class="h3">Market Trades</h3>
+                        <div class="orderbook-header">
+                            <div>Price (USD)</div>
+                            <div>Amount</div>
+                            <div>Time</div>
+                        </div>
+                        <div id="market-trades" class="market-trades">
+                            <!-- Dynamic content will be loaded here -->
+                        </div>
+                    </div>
+                    
+                    <div class="trade-card">
+                        <h3 class="h3">Order Book</h3>
+                        <div class="orderbook-header">
+                            <div>Price (USD)</div>
+                            <div>Amount</div>
+                            <div>Total</div>
+                        </div>
+                        <div id="order-book" class="order-book">
+                            <!-- Dynamic content will be loaded here -->
+                        </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+{% block extra_scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='scripts/trade.js') }}" defer></script>
+{% endblock %}

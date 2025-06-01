@@ -1,0 +1,31 @@
+{% extends "admin/base.html" %}
+{% block title %}Manage Cryptocurrencies{% endblock %}
+{% block content %}
+<h2>Cryptocurrencies</h2>
+<a href="{{ url_for('admin.add_crypto') }}" class="btn btn-primary mb-3">Add New Crypto</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>CoinGecko ID</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for crypto in cryptos %}
+        <tr>
+            <td>{{ crypto.id }}</td>
+            <td>{{ crypto.name }}</td>
+            <td>{{ crypto.symbol|upper }}</td>
+            <td>{{ crypto.coingecko_id }}</td>
+            <td>
+                <a href="{{ url_for('admin.edit_crypto', id=crypto.id) }}" class="btn btn-sm btn-warning">Edit</a>
+                <a href="{{ url_for('admin.delete_crypto', id=crypto.id) }}" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
